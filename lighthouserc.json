@@ -1,31 +1,35 @@
 {
   "ci": {
-    "collect": {
-      "method": "node",
-      "additive": false,
-      "headful": true,
-      "numberOfRuns": 1,
-      "puppeteerScript": "./fake-login.js",
-      "url": [
-        "https://courses.w3schools.com/courses/accessibility-fundamentals"
-      ],
-      "settings": {
-        "config-path": "./light-house-config.js"
-      }
-    },
-      
     "assert": {
       "preset": "lighthouse:recommended",
       "assertions": {      
-          "categories:performance": ["warn", {"aggregationMethod": "optimistic", "minScore": 0.95}],
-          "categories:accessibility": ["warn", {"aggregationMethod": "optimistic", "minScore": 0.90}],
-          "categories:best practices": ["warn", {"aggregationMethod": "optimistic", "minScore": 0.98}],
+          "offscreen-images": "off",
           "uses-webp-images": "off",
           "color-contrast": "off"
       }
     },
-
+    "collect": {
+      "method": "node",
+      "additive": true,
+      "headful": true,
+      "numberOfRuns": 1,
+      "puppeteerScript": "./preRunPuppeteer.js",
+      "url": [
+        "https://courses.w3schools.com/courses/accessibility-fundamentals"
+      ],
+      "settings": {
+        "config-path": "./lighthouseConfig.js"
+      }
+    },
+      
     "server": {
+      "logLevel": "silent",
+      "port": 9001,
+      "storage": {
+        "storageMethod": "sql",
+        "sqlDialect": "sqlite",
+        "sqlDatabasePath": "lhci.db"
+      }
     }
   }
 }
