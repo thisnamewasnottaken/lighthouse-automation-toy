@@ -4,3 +4,4 @@ node_modules
 cookie.json
 constantsSiteDetails.js
 db.sql
+lhci.db
