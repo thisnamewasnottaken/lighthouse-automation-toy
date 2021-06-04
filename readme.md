@@ -45,6 +45,8 @@ module.exports = {cookiesource};
     ├── lighthouserc.json
     ├── preRunPuppeteer.js
     └── README.md
+## Dependency Graph
+![Dependency Graph svg](./docs/dependencygraph.svg)
 
 ## Roadmap
 - None
