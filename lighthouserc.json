@@ -15,7 +15,8 @@
       "numberOfRuns": 5,
       "puppeteerScript": "./preRunPuppeteer.js",
       "url": [
-        "https://www.reddit.com"
+        "https://www.reddit.com",
+        "https://www.gurucharan.in/web/nodejs/lighthouse-ci-the-complete-guide-part-1/"
       ],
       "settings": {
         "config-path": "./lighthouseConfig.js"
