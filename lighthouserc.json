@@ -22,7 +22,9 @@
       }
     },
     "upload": {
-      "target": "lhci"
+      "target": "lhci",
+      "serverbaseurl":"http://localhost:9001",
+      "token":"775f8059-8f21-45fd-9a9f-7cbfe40469d0"
     },  
     "server": {
       "logLevel": "silent",

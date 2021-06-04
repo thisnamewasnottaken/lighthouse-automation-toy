@@ -5,6 +5,7 @@
     "healthcheck": "lhci healthcheck",
     "COOKIE TIME!": "node getcookies.js",
     "collect": "lhci collect",
+    "puuuuuuuush": "lhci upload",
     "startServer": "lhci server --config=./lighthouserc.json",
     "local server": "npx lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql"
   },
