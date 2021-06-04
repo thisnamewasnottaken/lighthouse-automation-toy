@@ -15,7 +15,7 @@
       "numberOfRuns": 1,
       "puppeteerScript": "./preRunPuppeteer.js",
       "url": [
-        "https://courses.w3schools.com/courses/accessibility-fundamentals"
+        "https://www.reddit.com/user/HP_10bII"
       ],
       "settings": {
         "config-path": "./lighthouseConfig.js"

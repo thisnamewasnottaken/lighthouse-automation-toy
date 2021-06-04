@@ -4,6 +4,7 @@
 // Passes           https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md#more-examples
 
 const constants = require('./constants.js');
+const sitedetails = require('./constantsSiteDetails.js');
 
 'use strict';
 
