@@ -7,6 +7,7 @@
 // Installing chrome cookies secure -- npm i --save chrome-cookies-secure
 //
 // ... node-gyp is a pain ... just saying
+// ... puppeteer is worse than my editor... 
 
 const chrome = require('chrome-cookies-secure');
 const {cookiesource} = require('./constantsSiteDetails');
@@ -15,9 +16,11 @@ const fs = require('fs');
 const url = cookiesource.link;
 
 console.log(url);
-chrome.getCookies(url, function(err, cookies) {
+chrome.getCookies(url, 'puppeteer', function(err, cookies) {
 		const data = JSON.stringify(cookies)
-		fs.writeFile('cookie.json', data, (err) => {
+		console.log("[INFO][getcookies] Stringified cookie");
+		console.log(data);
+		fs.writeFileSync('cookie.json', data, (err) => {
 		if (err) {
 			throw err;
 		}
