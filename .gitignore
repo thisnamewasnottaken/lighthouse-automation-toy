@@ -1,3 +1,5 @@
 node_modules
 .lighthouseci
 ./cookie.json
+cookie.json
+constantsSiteDetails.js
