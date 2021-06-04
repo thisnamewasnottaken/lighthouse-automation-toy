@@ -15,7 +15,7 @@
       "numberOfRuns": 1,
       "puppeteerScript": "./preRunPuppeteer.js",
       "url": [
-        "https://www.reddit.com/user/HP_10bII"
+        "https://www.reddit.com"
       ],
       "settings": {
         "config-path": "./lighthouseConfig.js"
