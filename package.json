@@ -7,7 +7,8 @@
     "collect": "lhci collect",
     "puuuuuuuush": "lhci upload",
     "startServer": "lhci server --config=./lighthouserc.json",
-    "local server": "npx lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql"
+    "local server": "npx lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
+    "Update Dependency Graph" : "depcruise -p --exclude \"^node_modules\" --output-type dot . | dot -T svg > docs/dependencygraph.svg"
   },
   "dependencies": {
     "@lhci/cli": "^0.8.0",
