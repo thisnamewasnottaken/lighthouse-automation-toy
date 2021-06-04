@@ -11,7 +11,7 @@
     "collect": {
       "method": "node",
       "additive": true,
-      "headful": true,
+      "headful": false,
       "numberOfRuns": 5,
       "puppeteerScript": "./preRunPuppeteer.js",
       "url": [
