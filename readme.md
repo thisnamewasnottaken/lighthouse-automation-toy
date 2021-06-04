@@ -13,7 +13,10 @@ Create the configuration file "constantsSiteDetails.js"
 // Variables for sourcing cookies from a site you're already logged into.
 // getcookies.js uses this for getting it during COOKIE TIME!
 var cookiesource = {
+    // fully qualified URL to the page we'll get cookies for from your current browser.
     link : 'https://www.somedomainlogin.com/url/to/page/',
+    // fully qualified URL for the login page for which we'll set cookies with puppeteer.
+    preRunPuppeteerlink : 'https://www.somedomainlogin.com/url/to/page/',
 };
 module.exports = {cookiesource};
 
@@ -24,7 +27,6 @@ module.exports = {cookiesource};
   - `lighthouseConfig.js`, 
   - `getcookies.js`, and 
   - `preRunPuppeteer.js`
-- 
 - Run `COOKIE TIME!` npm script to get cookies from current chrome or create cookie.json manually.
 - Run `healthcheck` npm script to confirm all the setup work is completed sensibly.
 - Run `collect` npm script to see your first results in `./lighthouseci`
