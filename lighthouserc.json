@@ -12,7 +12,7 @@
       "method": "node",
       "additive": true,
       "headful": true,
-      "numberOfRuns": 1,
+      "numberOfRuns": 5,
       "puppeteerScript": "./preRunPuppeteer.js",
       "url": [
         "https://www.reddit.com"
@@ -21,7 +21,9 @@
         "config-path": "./lighthouseConfig.js"
       }
     },
-      
+    "upload": {
+      "target": "lhci"
+    },  
     "server": {
       "logLevel": "silent",
       "port": 9001,
