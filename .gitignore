@@ -3,3 +3,4 @@ node_modules
 ./cookie.json
 cookie.json
 constantsSiteDetails.js
+db.sql
