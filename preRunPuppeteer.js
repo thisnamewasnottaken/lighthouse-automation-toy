@@ -1,8 +1,10 @@
-// https://dev.to/checkly/setting-state-using-cookies-1bk
-
 console.log("[INFO][preRunPuppeteer] Entering");
 module.exports = async (browser, context) => {
-  // this is not a real login scenario... we need some constants 
+  // this is not a real login scenario... we need some constants
+  // This assumes all you need is a cookie...
+  // If you need passwords, then read the link.
+  // https://dev.to/checkly/setting-state-using-cookies-1bk
+
   const {cookiesource} = require('./constantsSiteDetails');
   const puppeteer = require('puppeteer');
   const fs = require('fs');
@@ -12,15 +14,8 @@ module.exports = async (browser, context) => {
 
   // Read in the cookie values from cookie.json in this folder.
   const cookies = fs.readFileSync('cookie.json', 'utf8')
-    // console.log("[INFO][preRunPuppeteer] Reading cookie! ");
-    // console.log(typeof cookies);
 
   const deserializedCookies = JSON.parse(cookies)
-  // TODO: Error handling for when cookie isn't there...
-    // console.log("[INFO][preRunPuppeteer] Checkout desearalized stuff types! ");
-    // console.log(typeof deserializedCookies);  
-    // console.log("[INFO][preRunPuppeteer] Checkout desearalized stuff values! ");
-    // console.log(deserializedCookies)
 
   // Set the cookies
   await page.setCookie(...deserializedCookies)
