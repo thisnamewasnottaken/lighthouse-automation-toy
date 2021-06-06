@@ -1,0 +1,43 @@
+---
+# Lighthouse can't run Use this 
+ci:
+  assert:
+    preset: lighthouse:recommended
+    assertions:
+      offscreen-images: 'off'
+      uses-webp-images: 'off'
+      color-contrast:   'off'
+      interactive:
+        - error
+        - maxNumericValue: 3000
+          aggregationMethod: optimistic
+      first-meaningful-paint:
+        - error
+        - maxNumericValue: 1000
+          aggregationMethod: optimistic
+
+  collect:
+    method: node
+    additive: false
+    headful: false
+    numberOfRuns: 1
+    puppeteerScript: "./preRunPuppeteer.js"
+    url:
+    - https://www.reddit.com
+    - https://www.gurucharan.in/web/nodejs/lighthouse-ci-the-complete-guide-part-1/
+# This is commented out for a reason... check package.json
+#    settings:
+#      config-path: "./lighthouseConfig.js"
+
+  upload:
+    target: lhci
+    serverbaseurl: http://localhost:9001
+# Requires updating every time...
+    token: 775f8059-8f21-45fd-9a9f-7cbfe40469d0
+  server:
+    logLevel: silent
+    port: 9001
+    storage:
+      storageMethod: sql
+      sqlDialect: sqlite
+      sqlDatabasePath: lhci.db
