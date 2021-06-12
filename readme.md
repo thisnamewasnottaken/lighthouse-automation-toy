@@ -6,6 +6,13 @@ This is a toy created for anyone to use as starting point for their exploration 
 It assumes you have a simple list of URLs and only cookie authentication.
 Some article links can guide you through more complex setups.
 
+The server setup provides version compares and long term trends.
+
+Commit comparisons:
+<img title="Commit Comparisons" alt="image of Commit Comparisons" src="./images/commit_compare.png">
+Long Term Trends:
+<img title="Long Term Trends" alt="image of Long Term Trends" src="./images/LongTermTrends.png">
+
 - [Lighthouse Automation Toy](#lighthouse-automation-toy)
   - [Project Overview](#project-overview)
   - [Installation Instructions](#installation-instructions)
