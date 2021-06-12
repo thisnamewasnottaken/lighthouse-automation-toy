@@ -6,6 +6,17 @@ This is a toy created for anyone to use as starting point for their exploration 
 It assumes you have a simple list of URLs and only cookie authentication.
 Some article links can guide you through more complex setups.
 
+- [Lighthouse Automation Toy](#lighthouse-automation-toy)
+  - [Project Overview](#project-overview)
+  - [Installation Instructions](#installation-instructions)
+  - [Operating Instructions](#operating-instructions)
+  - [Key Files and Modules](#key-files-and-modules)
+  - [Dependency Graph](#dependency-graph)
+  - [Roadmap](#roadmap)
+  - [Contributing](#contributing)
+  - [Relevant Links](#relevant-links)
+  - [License](#license)
+
 ## Installation Instructions
 In command line run NPM Install and ensure all modules install correctly
 
