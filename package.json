@@ -2,15 +2,14 @@
   "name": "lhci",
   "version": "0.0.1",
   "scripts": {
-    "healthcheck":    "lhci healthcheck",
-    "COOKIE TIME!":   "node getcookies.js",
-    "collect":        "lhci collect --additive --settings.configPath=./lighthouseConfig-desktop.js && lhci collect --additive --settings.configPath=./lighthouseConfig-mobile.js",
-    "assert":         "lhci assert",
-    "startServer":    "lhci server --config=./lighthouserc.yml",
-    "local server":   "npx lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
-    "upload":         "lhci upload",
-    "Update Dependency Graph" : "depcruise -p --exclude \"^node_modules\" --output-type dot . | dot -T svg > docs/dependencygraph.svg"
-
+    "healthcheck": "lhci healthcheck",
+    "COOKIE TIME!": "node getcookies.js",
+    "collect": "lhci collect --additive --settings.configPath=./lighthouseConfig-desktop.js && lhci collect --additive --settings.configPath=./lighthouseConfig-mobile.js",
+    "assert": "lhci assert",
+    "startServer": "lhci server --config=./lighthouserc.yml",
+    "local server": "npx lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
+    "upload": "lhci upload",
+    "Update Dependency Graph": "depcruise -p --exclude \"^node_modules\" --output-type dot . | dot -T svg > docs/dependencygraph.svg"
   },
   "dependencies": {
     "@lhci/cli": "^0.8.0",

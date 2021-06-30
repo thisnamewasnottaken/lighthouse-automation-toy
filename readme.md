@@ -20,6 +20,7 @@ Long Term Trends:
   - [Key Files and Modules](#key-files-and-modules)
   - [Dependency Graph](#dependency-graph)
   - [Roadmap](#roadmap)
+  - [Common Issues](#common-issues)
   - [Contributing](#contributing)
   - [Relevant Links](#relevant-links)
   - [License](#license)
@@ -79,6 +80,15 @@ module.exports = {cookiesource};
 
 ## Roadmap
 - None
+
+## Common Issues
+- Ensure all libraries are up to date by running `npm outdated`
+- Node-gyp ... 
+  - `npm install node-gyp@latest` <-- endless pain...
+  - `npm install --global node-gyp@latest` <-- unfortunately yes...
+- updates that can solve some lock issues
+  - `npm i --save npm-check-updates`
+  - `ncu -g`
 
 ## Contributing
 Let's not get ahead of ourselves here. 
