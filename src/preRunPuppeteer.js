@@ -5,7 +5,7 @@ module.exports = async (browser, context) => {
   // If you need passwords, then read the link.
   // https://dev.to/checkly/setting-state-using-cookies-1bk
 
-  const {cookiesource} = require('./constantsSiteDetails');
+  const {cookiesource} = require('../constantsSiteDetails');
   const puppeteer = require('puppeteer');
   const fs = require('fs');
 
