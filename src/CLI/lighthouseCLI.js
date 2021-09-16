@@ -12,42 +12,30 @@ const desktop_config = require('./custom-desktop-config.js');
 const mobile_config = require('./custom-mobile-config.js');
 const { stringify } = require('querystring');
 
-
-// (async () => {
-//   const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-  
-//   const runnerResult = await lighthouse('https://google.com/', {port: chrome.port} , desktop_config);
-//   lighthouse('https://example.com/', {port: 9222}, desktop_config);
-//   // `.report` is the HTML report as a string
-//   const reportHtml = runnerResult.report;
-//   console.log(runnerResult.artifacts.fetchTime)
-//   fs.writeFileSync(runnerResult.artifacts.HostFormFactor+'_LightHouseReport.html', reportHtml);
-
-//   // `.lhr` is the Lighthouse Result as a JS object
-//   console.log('Report is done for', runnerResult.lhr.finalUrl);
-//   console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
-
-//   await chrome.kill();
-// })();
-
-
+console.log('Starting Mobile Config');
 mylighthouse(mobile_config);
-
+console.log('Starting Desktop Config');
+mylighthouse(desktop_config);
 
 async function mylighthouse(inputconfig) {
-  const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
+  console.log('Warming up Chrome');
+  const chrome = await chromeLauncher.launch({
+    chromeFlags: ['--headless']
+    });
   
+  console.log('Lighthouse starting');
   const runnerResult = await lighthouse('https://google.com/', {port: chrome.port} , inputconfig);
   lighthouse('https://example.com/', {port: 9222}, inputconfig);
   // `.report` is the HTML report as a string
   const reportHtml = runnerResult.report;
-  console.log(runnerResult.artifacts.fetchTime)
+  console.log('Total runtime ', runnerResult.artifacts.fetchTime)
+  console.log('Host formfactor ', runnerResult.artifacts.HostFormFactor)
   fs.writeFileSync(runnerResult.artifacts.HostFormFactor+'_LightHouseReport.html', reportHtml);
 
   // `.lhr` is the Lighthouse Result as a JS object
-  console.log(' 2 Report is done for', runnerResult.lhr.finalUrl);
-  console.log('2 Performance score was', runnerResult.lhr.categories.performance.score * 100);
+  console.log('Report is done for', runnerResult.lhr.finalUrl);
+  console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
 
+  console.log('Killing Chrome');
   await chrome.kill();
-  console.log("Completed running with ", json.stringify(inputconfig))
 };
