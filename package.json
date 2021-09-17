@@ -31,7 +31,7 @@
   "devDependencies": {
     "bufferutil": "^4.0.3",
     "dependency-cruiser": "^10.0.1",
-    "prettier": "2.3.2",
+    "prettier": "2.4.1",
     "utf-8-validate": "^5.0.5"
   }
 }
