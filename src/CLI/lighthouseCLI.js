@@ -3,21 +3,28 @@
 //
 // TODO:
 //      add z-time to report name
-//      drop reports in a reports folder
+//
 'use strict';
 
+// IMPORTS
+// Library imports
 const fs = require('fs');
 const lighthouse = require('lighthouse');
-
 const chromeLauncher = require('chrome-launcher');
+
+// Config Constants
 const desktop_config = require('./custom-desktop-config');
+const mobile_config = require('./custom-mobile-config');
+const tablet_config = require('./custom-mobile-config');
 
 (async () => {
-  console.log('Starting Desktop Run');
+  console.log('Starting Lighthouse Run');
   // Start with headless chrome.
   const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
   // Start Lighthouse run with the default chrome port and the imported desktop config.
   const runnerResult = await lighthouse('https://www.google.com/', {port: chrome.port}, desktop_config);
+  
+  // REPORT WRITING
   // `.report` is the HTML report as a string
   const reportHtml = runnerResult.report[0];
   const reportJSON = runnerResult.report[1];
@@ -27,6 +34,9 @@ const desktop_config = require('./custom-desktop-config');
   //'+runnerResult.artifacts.fetchTime+'.html'
   fs.writeFileSync(reportnameHtml, reportHtml);
   fs.writeFileSync(reportnameJSON, reportJSON);
+
+  console.log('Killing Chrome');
   await chrome.kill();
 
+  console.log('Completing Lighthouse Run');
 })();
