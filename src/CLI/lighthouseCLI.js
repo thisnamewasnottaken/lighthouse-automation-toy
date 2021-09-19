@@ -4,38 +4,29 @@
 // TODO:
 //      add z-time to report name
 //      drop reports in a reports folder
+'use strict';
 
 const fs = require('fs');
 const lighthouse = require('lighthouse');
+
 const chromeLauncher = require('chrome-launcher');
-const desktop_config = require('./custom-desktop-config.js');
-const mobile_config = require('./custom-mobile-config.js');
-const { stringify } = require('querystring');
+const desktop_config = require('./custom-desktop-config');
 
-console.log('Starting Mobile Config');
-mylighthouse(mobile_config);
-console.log('Starting Desktop Config');
-mylighthouse(desktop_config);
-
-async function mylighthouse(inputconfig) {
-  console.log('Warming up Chrome');
-  const chrome = await chromeLauncher.launch({
-    chromeFlags: ['--headless']
-    });
-  
-  console.log('Lighthouse starting');
-  const runnerResult = await lighthouse('https://google.com/', {port: chrome.port} , inputconfig);
-  lighthouse('https://example.com/', {port: 9222}, inputconfig);
+(async () => {
+  console.log('Starting Desktop Run');
+  // Start with headless chrome.
+  const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
+  // Start Lighthouse run with the default chrome port and the imported desktop config.
+  const runnerResult = await lighthouse('https://www.google.com/', {port: chrome.port}, desktop_config);
   // `.report` is the HTML report as a string
-  const reportHtml = runnerResult.report;
-  console.log('Total runtime ', runnerResult.artifacts.fetchTime)
-  console.log('Host formfactor ', runnerResult.artifacts.HostFormFactor)
-  fs.writeFileSync(runnerResult.artifacts.HostFormFactor+'_LightHouseReport.html', reportHtml);
-
-  // `.lhr` is the Lighthouse Result as a JS object
-  console.log('Report is done for', runnerResult.lhr.finalUrl);
-  console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
-
-  console.log('Killing Chrome');
+  const reportHtml = runnerResult.report[0];
+  const reportJSON = runnerResult.report[1];
+  // Write the report to the local report folder.
+  const reportnameHtml = './reports/'+runnerResult.artifacts.settings.formFactor+'_LightHouseReport.html';
+  const reportnameJSON = './reports/'+runnerResult.artifacts.settings.formFactor+'_LightHouseReport.json'; 
+  //'+runnerResult.artifacts.fetchTime+'.html'
+  fs.writeFileSync(reportnameHtml, reportHtml);
+  fs.writeFileSync(reportnameJSON, reportJSON);
   await chrome.kill();
-};
+
+})();
