@@ -1,4 +1,5 @@
 node_modules
+reports
 .lighthouseci
 ./cookie.json
 cookie.json
@@ -7,3 +8,4 @@ db.sql
 lhci.db
 .vscode/launch.json
 .html
+**/*.html
