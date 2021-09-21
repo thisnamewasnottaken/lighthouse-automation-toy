@@ -13,25 +13,37 @@ const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 
 // Config Constants
-const desktop_config = require('./custom-desktop-config');
-const mobile_config = require('./custom-mobile-config');
-const tablet_config = require('./custom-mobile-config');
+const output_desitnation = './reports/';
+const desktop_config = require('./custom-desktop-config.js');
+const mobile_config = require('./custom-mobile-config.js');
+const tablet_config = require('./custom-mobile-config.js');
+
+// Test URLs
+const testURL = 'https://www.google.com/'
+
 
 (async () => {
   console.log('Starting Lighthouse Run');
+  
+  // Execute Lighthouse Run
   // Start with headless chrome.
   const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
   // Start Lighthouse run with the default chrome port and the imported desktop config.
-  const runnerResult = await lighthouse('https://www.google.com/', {port: chrome.port}, desktop_config);
+  // Use a constant to consume results.
+  const runnerResult = await lighthouse(testURL, {port: chrome.port}, desktop_config);
   
   // REPORT WRITING
-  // `.report` is the HTML report as a string
+  
+  // The config is assumed to drive two report results in an array.
+  // Position 0 is the HTML and Position 1 is the JSON.
   const reportHtml = runnerResult.report[0];
   const reportJSON = runnerResult.report[1];
-  // Write the report to the local report folder.
-  const reportnameHtml = './reports/'+runnerResult.artifacts.settings.formFactor+'_LightHouseReport.html';
-  const reportnameJSON = './reports/'+runnerResult.artifacts.settings.formFactor+'_LightHouseReport.json'; 
-  //'+runnerResult.artifacts.fetchTime+'.html'
+  
+  //Define the report name
+  const reportnameHtml = output_desitnation+'_LightHouseReport_'+runnerResult.artifacts.settings.formFactor+'_'+runnerResult.artifacts.fetchTime.replace(/\-|\:/gi, "")+'.html';
+  const reportnameJSON = output_desitnation+'_LightHouseReport_'+runnerResult.artifacts.settings.formFactor+'_'+runnerResult.artifacts.fetchTime.replace(/\-|\:/gi, "")+'.json'; 
+  
+  //Write the report to the report folder.
   fs.writeFileSync(reportnameHtml, reportHtml);
   fs.writeFileSync(reportnameJSON, reportJSON);
 
