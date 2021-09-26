@@ -7,80 +7,62 @@
 'use strict';
 
 // IMPORTS
-const fs = require('fs');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
+const { promisify } = require('util');
+const { writeFile, writeFileSync } = require('fs');
+const { stringify } = require('querystring');
 
 // Config Constants
 const output_desitnation = './reports/';
-const theDesktopConfig = require('./custom-desktop-config.js');
+const urlInput = 'https://www.google.com/';
+const pWriteFile = promisify(writeFile);
+const config = require('./custom-desktop-config.js');
 const theMobileConfig = require('./custom-mobile-config.js');
 const theTabletConfig = require('./custom-tablet-config.js');
-const { stringify } = require('querystring');
-const urlInput = 'https://www.google.com/';
 
-async function lighthouseCall(theurltotest,theconfigtotest) {
-  console.log('Starting Lighthouse Run with URL: ',theurltotest, ' and config : ');
-  // Execute Lighthouse Run
-  // Start with headless chrome.
-  const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-  // Start Lighthouse run with the default chrome port and the imported desktop config.
-  // Use a constant to consume results.
-  const runnerResult = await lighthouse(theurltotest, {port: chrome.port}, theconfigtotest);
-  
-  // REPORT WRITING
-  
-  // The config is assumed to drive two report results in an array.
-  // Position 0 is the HTML and Position 1 is the JSON.
-  const reportHtml = runnerResult.report[0];
-  const reportJSON = runnerResult.report[1];
-  
-  //Define the report name
-  const reportnameHtml = output_desitnation+'_LightHouseReport_'+runnerResult.artifacts.settings.formFactor+'_'+runnerResult.artifacts.fetchTime.replace(/\-|\:/gi, "")+'.html';
-  const reportnameJSON = output_desitnation+'_LightHouseReport_'+runnerResult.artifacts.settings.formFactor+'_'+runnerResult.artifacts.fetchTime.replace(/\-|\:/gi, "")+'.json'; 
-  
-  //Write the report to the report folder.
-  console.log("Writing reports")
-  fs.writeFileSync(reportnameHtml, reportHtml);
-  fs.writeFileSync(reportnameJSON, reportJSON);
-
-  console.log('Killing Chrome');
-  await chrome.kill().then(console.log('Completed Lighthouse Run'));
-  return runnerResult;
+// Function to lauch chrome and run lighthouse.
+async function launchChromeAndRunLighthouse(url, opts, config = null) {
+  const chrome = await chromeLauncher.launch({chromeFlags: opts.chromeFlags});
+  opts.port = chrome.port;
+  const { lhr, report } = await lighthouse(url, opts, config);
+  await chrome.kill()
+  return { lhr, report };
 }
+// Default Options input to launchChromeAndRunLighthouse
+const opts = {
+  output: ['html','json'],
+  chromeFlags: ['--headless'],
+  logLevel: 'info'
+};
 
-lighthouseCall(urlInput,theDesktopConfig);
-//lighthouseCall(urlInput,theTabletConfig);
-//lighthouseCall(urlInput,theMobileConfig);
-
-// Pre Function format
-// (async () => {
-//   console.log('Starting Lighthouse Run');
-  
-//   // Execute Lighthouse Run
-//   // Start with headless chrome.
-//   const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-//   // Start Lighthouse run with the default chrome port and the imported desktop config.
-//   // Use a constant to consume results.
-//   const runnerResult = await lighthouse('https://www.google.com/', {port: chrome.port}, desktop_config);
-  
-//   // REPORT WRITING
-  
-//   // The config is assumed to drive two report results in an array.
-//   // Position 0 is the HTML and Position 1 is the JSON.
-//   const reportHtml = runnerResult.report[0];
-//   const reportJSON = runnerResult.report[1];
-  
-//   //Define the report name
-//   const reportnameHtml = output_desitnation+'_LightHouseReport_'+runnerResult.artifacts.settings.formFactor+'_'+runnerResult.artifacts.fetchTime.replace(/\-|\:/gi, "")+'.html';
-//   const reportnameJSON = output_desitnation+'_LightHouseReport_'+runnerResult.artifacts.settings.formFactor+'_'+runnerResult.artifacts.fetchTime.replace(/\-|\:/gi, "")+'.json'; 
-  
-//   //Write the report to the report folder.
-//   fs.writeFileSync(reportnameHtml, reportHtml);
-//   fs.writeFileSync(reportnameJSON, reportJSON);
-
-//   console.log('Killing Chrome');
-//   await chrome.kill();
-
-//   console.log('Completed Lighthouse Run');
-// })();
+// Script to run a set of pre-configured configs.
+// TODO: 
+//  #Turn into a neater function.
+//  #Make inputs parameters
+//  #build iterator for multiple domains.
+(async () => {
+  // Desktop Run
+  try {
+    console.log('Starting Desktop Run')
+    const results = await launchChromeAndRunLighthouse(urlInput, opts, config);
+    const reportnameHtml = output_desitnation+'_LightHouse_'+results.lhr.lighthouseVersion+'_Report_'+results.lhr.configSettings.formFactor+'_'+results.lhr.fetchTime.replace(/\-|\:/gi, "")+'.html';
+    const reportnameJSON = output_desitnation+'_LightHouse_'+results.lhr.lighthouseVersion+'_Report_'+results.lhr.configSettings.formFactor+'_'+results.lhr.fetchTime.replace(/\-|\:/gi, "")+'.json';
+    await pWriteFile(reportnameHtml, results.report[0]);
+    await pWriteFile(reportnameJSON, results.report[1]);
+    console.log('Desktop Run Complete')
+  } catch (e) {
+    console.log('Desktop Run had an error: ',e);
+  };
+  try {
+    console.log('Starting Mobile Run')
+    const results = await launchChromeAndRunLighthouse(urlInput, opts, theMobileConfig);
+    const reportnameHtml = output_desitnation+'_LightHouse_'+results.lhr.lighthouseVersion+'_Report_'+results.lhr.configSettings.formFactor+'_'+results.lhr.fetchTime.replace(/\-|\:/gi, "")+'.html';
+    const reportnameJSON = output_desitnation+'_LightHouse_'+results.lhr.lighthouseVersion+'_Report_'+results.lhr.configSettings.formFactor+'_'+results.lhr.fetchTime.replace(/\-|\:/gi, "")+'.json';
+    await pWriteFile(reportnameHtml, results.report[0]);
+    await pWriteFile(reportnameJSON, results.report[1]);
+    console.log('Mobile Run Complete')
+  } catch (e) {
+    console.log('Mobile Run had an error: ',e)
+  }
+})();

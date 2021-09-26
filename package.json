@@ -9,7 +9,8 @@
     "startServer": "lhci server --config=./lighthouserc.yml",
     "local server": "npx lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
     "upload": "lhci upload",
-    "Update Dependency Graph": "depcruise -p --exclude \"^node_modules\" --output-type dot . | dot -T svg > docs/dependencygraph.svg"
+    "Update Dependency Graph": "depcruise -p --exclude \"^node_modules\" --output-type dot . | dot -T svg > docs/dependencygraph.svg",
+    "Run CLI Script": "node ./src/CLI/lighthouseCLI_izi.js"
   },
   "dependencies": {
     "@lhci/cli": "^0.8.0",
