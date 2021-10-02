@@ -1,10 +1,11 @@
-//https://github.com/GoogleChrome/lighthouse/blob/master/docs/readme.md#using-programmatically
-//lighthouse https://developers.google.com/web/tools/lighthouse/ --output "json","html" --config-path ./lighthouseConfig-desktop.js --output-path=./cli_output/ 
+// Google's readme
+//  https://github.com/GoogleChrome/lighthouse/blob/master/docs/readme.md#using-programmatically
+// Google's developer blog on lighthouse (ref for output)
+//     https://developers.google.com/web/tools/lighthouse/ --output "json","html" --config-path ./lighthouseConfig-desktop.js --output-path=./cli_output/ 
+// Izifortune's blog on function
+//     https://izifortune.com/lighthouse-architecture-demystified/
 //
-// TODO:
-//      add z-time to report name.
-//      add logic to run multiple configs for each URL.
-'use strict';
+
 
 // IMPORTS
 const lighthouse = require('lighthouse');
@@ -17,11 +18,10 @@ const { stringify } = require('querystring');
 const output_desitnation = './reports/';
 const urlInput = 'https://www.google.com/';
 const pWriteFile = promisify(writeFile);
-const config = require('./custom-desktop-config.js');
+const theDesktopConfig = require('./custom-desktop-config.js');
 const theMobileConfig = require('./custom-mobile-config.js');
 const theTabletConfig = require('./custom-tablet-config.js');
 
-// Function to lauch chrome and run lighthouse.
 async function launchChromeAndRunLighthouse(url, opts, config = null) {
   const chrome = await chromeLauncher.launch({chromeFlags: opts.chromeFlags});
   opts.port = chrome.port;
@@ -29,40 +29,42 @@ async function launchChromeAndRunLighthouse(url, opts, config = null) {
   await chrome.kill()
   return { lhr, report };
 }
-// Default Options input to launchChromeAndRunLighthouse
+
 const opts = {
   output: ['html','json'],
   chromeFlags: ['--headless'],
   logLevel: 'info'
 };
 
-// Script to run a set of pre-configured configs.
-// TODO: 
-//  #Turn into a neater function.
-//  #Make inputs parameters
-//  #build iterator for multiple domains.
+// Usage:
 (async () => {
-  // Desktop Run
+
+  console.log('Lighthouse Sequence Started')
+  // Run test with Desktop configuration
   try {
-    console.log('Starting Desktop Run')
-    const results = await launchChromeAndRunLighthouse(urlInput, opts, config);
+    console.log('Desktop Run - Started')
+    const results = await launchChromeAndRunLighthouse(urlInput, opts, theDesktopConfig);
     const reportnameHtml = output_desitnation+'_LightHouse_'+results.lhr.lighthouseVersion+'_Report_'+results.lhr.configSettings.formFactor+'_'+results.lhr.fetchTime.replace(/\-|\:/gi, "")+'.html';
     const reportnameJSON = output_desitnation+'_LightHouse_'+results.lhr.lighthouseVersion+'_Report_'+results.lhr.configSettings.formFactor+'_'+results.lhr.fetchTime.replace(/\-|\:/gi, "")+'.json';
+    console.log('Desktop Run - Writing Reports')
     await pWriteFile(reportnameHtml, results.report[0]);
     await pWriteFile(reportnameJSON, results.report[1]);
-    console.log('Desktop Run Complete')
+    console.log('Desktop Run - Complete')
   } catch (e) {
     console.log('Desktop Run had an error: ',e);
   };
+  // Run test with Mobile configuration
   try {
-    console.log('Starting Mobile Run')
+    console.log('Mobile Run - Started')
     const results = await launchChromeAndRunLighthouse(urlInput, opts, theMobileConfig);
     const reportnameHtml = output_desitnation+'_LightHouse_'+results.lhr.lighthouseVersion+'_Report_'+results.lhr.configSettings.formFactor+'_'+results.lhr.fetchTime.replace(/\-|\:/gi, "")+'.html';
     const reportnameJSON = output_desitnation+'_LightHouse_'+results.lhr.lighthouseVersion+'_Report_'+results.lhr.configSettings.formFactor+'_'+results.lhr.fetchTime.replace(/\-|\:/gi, "")+'.json';
+    console.log('Mobile Run - Writing Files')
     await pWriteFile(reportnameHtml, results.report[0]);
     await pWriteFile(reportnameJSON, results.report[1]);
-    console.log('Mobile Run Complete')
+    console.log('Mobile Run - Completed')
   } catch (e) {
     console.log('Mobile Run had an error: ',e)
   }
+  console.log('Lighthouse Sequence Complete')
 })();
