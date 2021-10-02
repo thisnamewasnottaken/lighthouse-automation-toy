@@ -14,7 +14,7 @@ const { promisify } = require('util');
 const { writeFile, writeFileSync } = require('fs');
 const { stringify } = require('querystring');
 
-// Config Constants
+// CONFIG CONSTANTS
 const output_desitnation = './reports/';
 const urlInput = 'https://www.google.com/';
 const pWriteFile = promisify(writeFile);
@@ -22,6 +22,7 @@ const theDesktopConfig = require('./custom-desktop-config.js');
 const theMobileConfig = require('./custom-mobile-config.js');
 const theTabletConfig = require('./custom-tablet-config.js');
 
+// FUNCTION TO LAUNCH AND RUN CHROME
 async function launchChromeAndRunLighthouse(url, opts, config = null) {
   const chrome = await chromeLauncher.launch({chromeFlags: opts.chromeFlags});
   opts.port = chrome.port;
@@ -30,13 +31,14 @@ async function launchChromeAndRunLighthouse(url, opts, config = null) {
   return { lhr, report };
 }
 
+// DEFAULT OPTION
 const opts = {
   output: ['html','json'],
   chromeFlags: ['--headless'],
   logLevel: 'info'
 };
 
-// Usage:
+// FUNCTION
 (async () => {
 
   console.log('Lighthouse Sequence Started')
