@@ -9,3 +9,4 @@ lhci.db
 .vscode/launch.json
 .html
 **/*.html
+!types.d.ts

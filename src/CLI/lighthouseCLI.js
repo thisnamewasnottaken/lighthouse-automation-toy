@@ -23,7 +23,7 @@ const theMobileConfig = require('./custom-mobile-config.js');
 const theTabletConfig = require('./custom-tablet-config.js');
 
 // FUNCTION TO LAUNCH AND RUN CHROME
-async function launchChromeAndRunLighthouse(url, opts, config = null) {
+async function launchChromeAndRunLighthouse(url = 'https://www.google.com/', opts = {chromeFlags: ['--headless']}, config = null) {
   const chrome = await chromeLauncher.launch({chromeFlags: opts.chromeFlags});
   opts.port = chrome.port;
   const { lhr, report } = await lighthouse(url, opts, config);
