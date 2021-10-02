@@ -66,6 +66,11 @@ module.exports = {cookiesource};
 
 ## Key Files and Modules
     .
+    ├── Docs
+    |    ├── dependencygraphsvg       # Graph of how the dependencies in the project interelate.
+    ├── reports                       # Folder for all the reports
+    ├── src
+    |    ├── CLI                      # CLI utility that can be run once configuration is in place. 
     ├── constants.js                  # constants script from google for, reasons.
     ├── constantsSiteDetails.js       # URLs for getcookies.    
     ├── cookie.json                   # Cookie... probably not tracked on git.

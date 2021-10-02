@@ -8,6 +8,9 @@
 //
 // ... node-gyp is a pain ... just saying
 // ... puppeteer is worse than my editor... 
+// TODO:
+//		Make into callable function with variables: link, preRunPupeteerlink
+// 		 
 
 const chrome = require('chrome-cookies-secure');
 const {cookiesource} = require('./constantsSiteDetails');
