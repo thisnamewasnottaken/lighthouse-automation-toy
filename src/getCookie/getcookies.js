@@ -23,8 +23,9 @@ chrome.getCookies(url, 'puppeteer', function(err, cookies) {
 		const data = JSON.stringify(cookies)
 		console.log("[INFO][getcookies] Stringified cookie");
 		console.log(data);
-		fs.writeFileSync('cookie.json', data, (err) => {
+		fs.writeFileSync('./cookie/cookie.json', data, (err) => {
 		if (err) {
+			console.error("[ERROR][getcookies] Errorin chrome.getCookies.");
 			throw err;
 		}
 		console.log("[INFO][getcookies] Cookie for file data is saved.");
