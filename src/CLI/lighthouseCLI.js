@@ -53,7 +53,7 @@ const opts = {
     await pWriteFile(reportnameJSON, results.report[1]);
     console.log('Desktop Run - Complete')
   } catch (e) {
-    console.log('Desktop Run had an error: ',e);
+    console.error('Desktop Run had an error: ',e);
   };
   // Run test with Mobile configuration
   try {
@@ -66,7 +66,7 @@ const opts = {
     await pWriteFile(reportnameJSON, results.report[1]);
     console.log('Mobile Run - Completed')
   } catch (e) {
-    console.log('Mobile Run had an error: ',e)
+    console.error('Mobile Run had an error: ',e)
   }
   console.log('Lighthouse Sequence Complete')
 })();
