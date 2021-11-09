@@ -20,7 +20,7 @@
     "madge": "^5.0.1",
     "node": "^17.0.1",
     "node-gyp": "^8.1.0",
-    "npm-check-updates": "^11.6.0",
+    "npm-check-updates": "^12.0.1",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
     "puppeteer": "^10.0.0",
