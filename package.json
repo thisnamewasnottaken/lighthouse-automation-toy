@@ -14,7 +14,7 @@
   "dependencies": {
     "@lhci/cli": "^0.8.0",
     "@lhci/server": "^0.8.0",
-    "chrome-cookies-secure": "^2.0.0",
+    "chrome-cookies-secure": "^3.0.1",
     "lighthouse": "^9.0.0",
     "lighthouse-batch": "^8.0.0",
     "madge": "^5.0.1",
