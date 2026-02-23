@@ -1,10 +1,11 @@
 const fs = require('fs');
-const lighthouse = require('lighthouse');
-const chromeLauncher = require('chrome-launcher');
 const path = require('path/posix');
 
 (async () => {
-  const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
+  const {launch} = await import('chrome-launcher');
+  const {default: lighthouse} = await import('lighthouse');
+
+  const chrome = await launch({chromeFlags: ['--headless']});
   const options = {
         logLevel: 'info', 
         output: 'json',
@@ -19,7 +20,7 @@ const path = require('path/posix');
   fs.writeFileSync('lhreport.html', reportHtml);
 
   // `.lhr` is the Lighthouse Result as a JS object
-  console.log('Report is done for', runnerResult.lhr.finalUrl);
+  console.log('Report is done for', runnerResult.lhr.finalDisplayedUrl);
   console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
   console.log('Accessibility score was', runnerResult.lhr.categories.accessibility.score * 100);
 
