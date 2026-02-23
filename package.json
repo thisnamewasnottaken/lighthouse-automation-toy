@@ -1,6 +1,9 @@
 {
   "name": "lhci",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "healthcheck": "lhci healthcheck",
     "COOKIE TIME!": "node getcookies.js",
@@ -12,26 +15,26 @@
     "Update Dependency Graph": "depcruise -p --exclude \"^node_modules\" --output-type dot . | dot -T svg > docs/dependencygraph.svg"
   },
   "dependencies": {
-    "@lhci/cli": "^0.8.0",
-    "@lhci/server": "^0.8.0",
-    "chrome-cookies-secure": "^3.0.0",
-    "lighthouse": "^9.0.0",
-    "lighthouse-batch": "^8.0.0",
-    "madge": "^5.0.1",
-    "node": "^19.8.1",
-    "node-gyp": "^9.3.1",
-    "npm-check-updates": "^12.0.5",
-    "pg": "^8.6.0",
-    "pg-hstore": "^2.3.3",
-    "puppeteer": "^14.2.1",
-    "sqlite3": "^5.0.2",
-    "typescript": "^4.3.2",
-    "uuid": "^8.3.2"
+    "@lhci/cli": "^0.15.1",
+    "@lhci/server": "^0.15.1",
+    "chrome-cookies-secure": "^3.0.1",
+    "lighthouse": "^13.0.3",
+    "lighthouse-batch": "^8.1.1",
+    "madge": "^8.0.0",
+    "node": "^22.0.0",
+    "node-gyp": "^12.2.0",
+    "npm-check-updates": "^19.4.1",
+    "pg": "^8.18.0",
+    "pg-hstore": "^2.3.4",
+    "puppeteer": "^24.37.5",
+    "sqlite3": "^5.1.7",
+    "typescript": "^5.9.3",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "bufferutil": "^4.0.3",
-    "dependency-cruiser": "^11.1.0",
-    "prettier": "2.8.4",
-    "utf-8-validate": "^5.0.5"
+    "dependency-cruiser": "^17.3.8",
+    "prettier": "^3.8.1",
+    "utf-8-validate": "^6.0.6"
   }
 }
