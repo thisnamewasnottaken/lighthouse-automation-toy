@@ -32,6 +32,6 @@
     "bufferutil": "^4.0.3",
     "dependency-cruiser": "^11.1.0",
     "prettier": "2.8.4",
-    "utf-8-validate": "^5.0.5"
+    "utf-8-validate": "^6.0.6"
   }
 }
