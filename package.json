@@ -26,7 +26,7 @@
     "puppeteer": "^14.2.1",
     "sqlite3": "^5.0.2",
     "typescript": "^4.3.2",
-    "uuid": "^8.3.2"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "bufferutil": "^4.0.3",
