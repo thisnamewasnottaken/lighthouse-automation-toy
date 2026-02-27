@@ -21,7 +21,7 @@
     "lighthouse": "^13.0.3",
     "lighthouse-batch": "^8.1.1",
     "madge": "^8.0.0",
-    "node": "^22.0.0",
+    "node": "^25.7.0",
     "node-gyp": "^12.2.0",
     "npm-check-updates": "^19.4.1",
     "pg": "^8.18.0",
